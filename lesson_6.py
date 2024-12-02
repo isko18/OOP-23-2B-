@@ -33,6 +33,16 @@ def register():
     
     connect.commit()
     
+    #Использование форматированных строк (f"") для вставки значений в SQL-запрос может привести к уязвимости типа SQL-инъекция, если пользователь вводит специальные символы в текстовые поля.
+
+    cursor.execute(""" INSERT INTO geeks
+                   (full_name, age, direction, is_have, rating, birth_date)
+                   VALUES (?, ?, ?, ?, ?, ?)""", (full_name, age, direction, is_have, rating, birth_date))
+    
+    connect.commit()
+     
+    '''Плейсхолдер (англ. placeholder) — это специальный символ или текстовый маркер, который используется в SQL-запросах и других контекстах программирования для обозначения места, куда позже будет вставлено значение'''
+        
 def all_students():
     cursor.execute("SELECT * FROM users ")
     students = cursor.fetchall()
